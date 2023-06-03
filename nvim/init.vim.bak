@@ -1,0 +1,121 @@
+lua require('plugins')
+
+lua << END
+require('monokai-pro').setup({
+	filter = "spectrum"
+})
+END
+
+lua << END
+require('lualine').setup {
+	options = {
+		theme = 'codedark',
+		icons_enabled = true,
+	}
+}
+END
+
+syntax on
+colorscheme gruvbox
+set cursorline
+set termguicolors
+set number
+set guicursor+=i:blinkon100
+set mouse=a
+set fileformat=unix
+set tabstop=4
+set shiftwidth=4 smarttab
+set splitright
+set splitbelow
+set shell=cmd.exe
+set clipboard+=unnamedplus
+
+"Clipboard"
+let g:clipboard = {
+	\ 'name': 'win32yank',
+	\ 'copy': {
+	\		'+': 'D:\dev\programs\win32yank\win32yank.exe -i --crlf',
+	\		'*': 'D:\dev\programs\win32yank\win32yank.exe -i --crlf',
+	\	},
+	\ 'paste': {
+	\ 		'+': 'D:\dev\programs\win32yank\win32yank.exe -o --lf',
+	\ 		'*': 'D:\dev\programs\win32yank\win32yank.exe -o --lf',
+	\	},
+	\ 'cache_enabled': 0,
+	\}
+
+command Q q
+command Qa qa
+nmap <c-s> :w<CR>
+nmap <c-o> :e C:\Users\91863\AppData\Local\nvim<CR>
+
+"Buffer Remaps"
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+nnoremap <C-Left> :tabprevious<CR>
+nnoremap <C-Right> :tabnext<CR>
+
+"nvim-tree Config"
+nmap <c-t> :NvimTreeToggle<CR>
+
+lua << END
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+require("nvim-tree").setup()
+END
+
+"telescope.nvim config"
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+"nvim treesitter config"
+lua << END
+require'nvim-treesitter.configs'.setup {
+	ensure_installed = { "c", "cpp", "rust", "lua", "vim", "help", "query", "html", "css", "glsl", "make" },
+	sync_install = false,
+	auto_install = false,
+
+	highlight = {
+		enable = true,
+
+		disable = function(lang, buf)
+			local max_filesize = 100 * 1024 -- 100 KB
+			local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+			if ok and stats and stats.size > max_filesize then
+				return true
+			end
+		end,
+	},
+}
+END
+
+"bufferline.nvim config"
+lua << END
+require("bufferline").setup {
+	options = {
+		separator_style = "slant",	
+		offsets = {
+			{
+				filetype = "NvimTree",
+				text = "Nvim Tree",
+				text_align = "center",
+				separator = true
+			}
+		},
+	}
+}
+END
+
+"Neovim LSP Config"
+lua << END
+--local lspconfig = require('lspconfig')
+--lspconfig.clangd.setup {}
+--vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+--vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+--vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+--vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+END
