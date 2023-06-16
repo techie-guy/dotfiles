@@ -23,18 +23,14 @@ return require('packer').startup(function(use)
   use "felipeagc/fleet-theme-nvim"
   use "doums/darcula"
   use "junegunn/seoul256.vim"
- -- use "loctvl842/monokai-pro.nvim"
+  use "dasupradyumna/midnight.nvim"
   -----
   
   use "lukas-reineke/indent-blankline.nvim"
   use "NvChad/nvim-colorizer.lua"
   use "windwp/nvim-autopairs"
 
-  use {
-	'akinsho/bufferline.nvim',
-	tag = "*",
-    requires = 'nvim-tree/nvim-web-devicons'
-  }
+  use 'romgrk/barbar.nvim'
 
   use {
 	'nvim-lualine/lualine.nvim',
@@ -56,6 +52,7 @@ return require('packer').startup(function(use)
   }
 
   use { 'hrsh7th/nvim-cmp' }
+  use { 'hrsh7th/cmp-nvim-lsp' }
   use { 'neovim/nvim-lspconfig' }
 
   use {
