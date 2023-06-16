@@ -12,20 +12,6 @@ dashboard.section.header.val = {
     "                                                     ",
 }
 
---[[
-dashboard.section.header.val = {
-	'          ▀████▀▄▄              ▄█ ',
-    '            █▀    ▀▀▄▄▄▄▄    ▄▄▀▀█ ',
-    '    ▄        █          ▀▀▀▀▄  ▄▀  ',
-    '   ▄▀ ▀▄      ▀▄              ▀▄▀  ',
-    '  ▄▀    █     █▀   ▄█▀▄      ▄█    ',
-    '  ▀▄     ▀▄  █     ▀██▀     ██▄█   ',
-    '   ▀▄    ▄▀ █   ▄██▄   ▄  ▄  ▀▀ █  ',
-    '    █  ▄▀  █    ▀██▀    ▀▀ ▀▀  ▄▀  ',
-    '   █   █  █      ▄▄           ▄▀   ',
-}
-]]--
-
 dashboard.section.buttons.val = {
     dashboard.button( "e", "   New file" , ":ene <BAR> startinsert <CR>"),
     dashboard.button( "t", "   Toggle Nvim Tree" , ":NvimTreeToggle <CR>"),
