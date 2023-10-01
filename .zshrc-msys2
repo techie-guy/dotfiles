@@ -1,0 +1,92 @@
+# Aliases
+alias df='df -h'
+alias du='du -h'
+#
+# Misc :)
+alias less='less -r'                          # raw control characters
+alias whence='type -a'                        # where, of a sort
+alias grep='grep --color'                     # show differences in colour
+alias egrep='egrep --color=auto'              # show differences in colour
+alias fgrep='fgrep --color=auto'              # show differences in colour
+#
+# Some shortcuts for different directory listings
+alias ls='ls --color=auto'                 # classify files in colour
+alias dir='ls --color=auto --format=vertical'
+alias vdir='ls --color=auto --format=long'
+alias ll='ls -l'                              # long list
+alias la='ls -A'                              # all but . and ..
+alias l='ls -CF'                              #
+
+# Reload ZSH
+alias reload="source ~/.zshrc"
+
+# Program and SDK Aliases
+alias emsdk_env="source D:/dev/programs/emsdk/emsdk_env.sh"
+alias kate="start kate"
+alias nvim-qt="start nvim-qt"
+alias term-config="kate -s term-config"
+alias oskbd="start osk"
+
+# Change the MSYS2 Environment
+change_msys2_env () {
+    PS3="Enter a number: "
+    local MSYS2_ENVIRONMENTS=("MSYS" "MINGW32" "MINGW64" "CLANG64" "UCRT64")
+
+    select envrionment in ${MSYS2_ENVIRONMENTS[@]}; do
+        if (( $REPLY <= ${#MSYS2_ENVIRONMENTS[@]} )) then
+            export MSYSTEM=$envrionment;
+            echo "Changing to ${MSYS2_ENVIRONMENTS[$REPLY]} Environment."
+            break;
+        fi
+        echo "Invalid Environment, Please choose a valid Environment."
+    done
+
+    export CHERE_INVOKING=1;
+    exec zsh -l -i;
+}
+
+# Neovim
+export NVIM_CONFIG_DIR="$(cygpath $LOCALAPPDATA)/nvim"
+export NVIM_DATA_DIR="$(cygpath $LOCALAPPDATA)/nvim-data"
+alias nvim-config="nvim ${NVIM_CONFIG_DIR}/init.vim"
+
+# Key Bindings
+# ctrl-left/right
+bindkey "\e[1;5C" forward-word
+bindkey "\e[1;5D" backward-word
+# alt-backspace
+bindkey "\e\d" undo
+bindkey "\e[3~" delete-char
+bindkey '\e[H' beginning-of-line
+bindkey '\e[F' end-of-line
+
+# Man Page Config
+export LESS_TERMCAP_md=$'\e[01;31m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[01;32m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[45;93m'
+
+# Extra Config
+# autoload -Uz compinit && compinit # For Git Autocomplete
+
+# ZSH History
+HISTFILE=~/.history
+HISTSIZE=1000
+SAVEHIST=1000
+setopt SHARE_HISTORY
+
+# Setting the Prompt
+local USER_NAME='techie-guy'
+local TERM_TITLE="Alacritty in ${MSYSTEM}"
+local PROMPT_SYMBOL=''
+local NEWLINE=$'\n'
+LS_COLORS=""
+PROMPT="%F{green}$USER_NAME@${MSYSTEM:l}%f %F{blue}%/%f %F{white}$PROMPT_SYMBOL%f "
+GREP_COLORS='ms=01;33:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36'
+echo -ne "\033]0;$TERM_TITLE\007"
+
+# Export Everything
+export LS_COLORS
+export PROMPT
+export GREP_COLORS
